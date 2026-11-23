@@ -1,0 +1,18 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: devops-web
+    ports:
+      - "8082:80"
+    restart: unless-stopped
+
+  secondary-web:
+    image: nginx:alpine
+    container_name: devops-secondary
+    volumes:
+      - ./secondary:/usr/share/nginx/html:ro
+    ports:
+      - "8081:80"
+    restart: unless-stopped
